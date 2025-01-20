@@ -2,52 +2,48 @@ import React, { useState } from "react";
 import Button from "./Button";
 
 function FormAddFriend({ onAddFriend }) {
-  const [friendName, setFriendName] = useState("");
-  const [avatar, setAvatar] = useState("https://i.pravatar.cc/48?");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("https://i.pravatar.cc/48?");
 
-  function handleChangeFriendName(e) {
-    setFriendName(e.target.value);
+  function handleChangeName(e) {
+    setName(e.target.value);
   }
 
-  function handleChangeAvatar(e) {
-    setAvatar(e.target.value);
+  function handleChangeImage(e) {
+    setImage(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!friendName) return;
+    if (!name || !image) return;
 
     const id = crypto.randomUUID();
     const addNewFriend = {
-      name: friendName,
-      image: `${avatar}/${id}`,
+      name,
+      image: `${image}?=${id}`,
+      balance: 0,
       id,
     };
-    console.log(addNewFriend);
+
     onAddFriend(addNewFriend);
 
-    setFriendName("");
-    setFriendName("https://i.pravatar.cc/48");
+    setName("");
+    setImage("https://i.pravatar.cc/48");
   }
 
   return (
     <form action="" className="form-add-friend" onSubmit={handleSubmit}>
       <label htmlFor="name">👭 Friend Name</label>
-      <input
-        type="text"
-        value={friendName}
-        onChange={handleChangeFriendName}
-        id="name"
-      />
-      <label htmlFor="image">🎞️ Avatar</label>
+      <input type="text" value={name} onChange={handleChangeName} id="name" />
+      <label htmlFor="image">🖼️ Image URL</label>
       <input
         type="text"
         id="image"
-        value={avatar}
-        onChange={handleChangeAvatar}
+        value={image}
+        onChange={handleChangeImage}
       />
 
-      <Button>Add</Button>
+      <Button type="submit">Add</Button>
     </form>
   );
 }
