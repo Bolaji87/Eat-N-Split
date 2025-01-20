@@ -1,6 +1,7 @@
 import React from "react";
 import { initialFriends } from "./utils";
 import Friends from "./components/Friends";
+import FormAddFriend from "./components/FormAddFriend";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           })}
         </ul>
       </div>
+      <FormAddFriend />
     </div>
   );
 }

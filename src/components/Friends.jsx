@@ -1,11 +1,12 @@
 import React from "react";
+import Button from "./Button";
 
 function Friends({ friend }) {
   return (
     <li>
       <img src={friend.image} alt="" />
       <div>
-        <h2>{friend.name}</h2>
+        <h3>{friend.name}</h3>
         <p
           className={`${
             friend.balance < 1 && friend.balance !== 0 ? "red" : ""
@@ -22,7 +23,8 @@ function Friends({ friend }) {
 
         <p>{friend.balance === 0 && `You and ${friend.name} are even`}</p>
       </div>
-      <button className="button">Select</button>
+
+      <Button>Select</Button>
     </li>
   );
 }
