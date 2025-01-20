@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { initialFriends } from "./utils";
 import Friends from "./components/Friends";
 import FormAddFriend from "./components/FormAddFriend";
+// import FormSplitBill from "./components/FormSplitBill";
 
 function App() {
+  const [friends, setFriends] = useState(initialFriends);
+
+  function handleAddFriend(friend) {
+    setFriends((friends) => [...friends, friend]);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <ul>
-          {initialFriends.map(function (friend) {
+          {friends.map(function (friend) {
             return <Friends key={friend.id} friend={friend} />;
           })}
         </ul>
       </div>
-      <FormAddFriend />
+
+      <FormAddFriend onAddFriend={handleAddFriend} />
     </div>
   );
 }
