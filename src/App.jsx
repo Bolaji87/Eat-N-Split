@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { initialFriends } from "./utils";
 import Friends from "./components/Friends";
 import FormAddFriend from "./components/FormAddFriend";
+import FormSplitBill from "./components/FormSplitBill";
 // import FormSplitBill from "./components/FormSplitBill";
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
         </ul>
       </div>
 
-      <FormAddFriend onAddFriend={handleAddFriend} />
+      <FormSplitBill />
+      {friends && <FormAddFriend onAddFriend={handleAddFriend} />}
     </div>
   );
 }
