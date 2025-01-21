@@ -44,6 +44,7 @@ function App() {
           selectedFriend={selectedFriend}
           friends={friends}
           setFriends={setFriends}
+          setSelctedFriend={setSelctedFriend}
         />
       )}
     </div>
