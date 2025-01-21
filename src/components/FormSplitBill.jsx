@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-function FormSplitBill({ selectedFriend, friends, setFriends }) {
+function FormSplitBill({
+  selectedFriend,
+  setSelctedFriend,
+  friends,
+  setFriends,
+}) {
   const [bill, setBill] = useState("");
-  const [expense, setExpense] = useState("");
+  const [paidByUser, setPaidByUser] = useState("");
   const [whoIsPaying, setWhoIsPaying] = useState("user");
-  const friendExpense = bill - expense;
+  const paidByFriend = bill ? bill - paidByUser : "";
 
   function handleBillChange(e) {
     setBill(Number(e.target.value));
   }
 
-  function handleExpenseChange(e) {
-    setExpense(Number(e.target.value));
+  function handleUserChange(e) {
+    setPaidByUser(
+      Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
+    );
   }
 
   function handleWhoIsPayingChange(e) {
@@ -21,6 +28,7 @@ function FormSplitBill({ selectedFriend, friends, setFriends }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!bill || !paidByUser) return;
 
     setFriends((friends) =>
       friends.map((friend) =>
@@ -29,12 +37,13 @@ function FormSplitBill({ selectedFriend, friends, setFriends }) {
               ...friend,
               balance:
                 whoIsPaying === "user"
-                  ? selectedFriend.balance + friendExpense
-                  : selectedFriend.balance - expense,
+                  ? friend.balance + paidByFriend
+                  : friend.balance - paidByUser,
             }
           : friend
       )
     );
+    setSelctedFriend(null);
   }
 
   return (
@@ -44,10 +53,10 @@ function FormSplitBill({ selectedFriend, friends, setFriends }) {
       <input type="number" value={bill} onChange={handleBillChange} />
 
       <label>🧍 Your expense</label>
-      <input type="number" value={expense} onChange={handleExpenseChange} />
+      <input type="number" value={paidByUser} onChange={handleUserChange} />
 
       <label>👨🏽‍🤝‍👨🏾 {selectedFriend.name}'s expense</label>
-      <input type="number" value={friendExpense} disabled />
+      <input type="number" value={paidByFriend} disabled />
 
       <label>Who is paying the bill?</label>
       <select value={whoIsPaying} onChange={handleWhoIsPayingChange}>
