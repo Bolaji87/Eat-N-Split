@@ -4,7 +4,7 @@ import Button from "./Button";
 function FormSplitBill({
   selectedFriend,
   setSelctedFriend,
-  friends,
+
   setFriends,
 }) {
   const [bill, setBill] = useState("");
